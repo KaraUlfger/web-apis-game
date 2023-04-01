@@ -2,11 +2,17 @@ var quiz = [
     {
         question: "what planet are you on?",
         options: ["Earth", "Venus", "Mars", "Pluto"],
-        answer: "1"
+        answer: "Earth"
+    },
+    {
+        question: "when is lunch?",
+        options: ["Midnight", "Morning", "Noon", "Evening"],
+        answer: "Noon" 
     }
-]
-var questionSelect = document.getElementById("question")
-var answerSelect = document.getElementById("answerList")
+];
+
+var questionSelect = document.getElementById("question");
+var answerSelect = document.getElementById("answerList");
 
 // Click start button and timer starts for quiz
 document.getElementById("start").addEventListener('click', function() {
@@ -18,22 +24,34 @@ document.getElementById("start").addEventListener('click', function() {
         clearInterval(timer); 
       }
     }, 1000);
+    showQuiz(0);
 });
-
-
 
 // After timer starts, various questions from ARRAY to answer from multiple choice ARRAY
 function showQuiz(index) {
-    answerList.innerHTML ='';
-    questionSelect.textcontent = quiz[index].fill;
+    answerSelect.innerHTML = '';
+    questionSelect.textContent = quiz[index].question;
     for (var i = 0; i < quiz[index].options.length; i++) {
-        var fill =document.createElement("li");
-        var button =document.createElement("button");
+        var li = document.createElement("li");
+        var button = document.createElement("button");
         button.setAttribute("type", "button");
         button.setAttribute("id", i);
-        button.textContent =quiz[index].options[i];
-        fill.appendChild(button);
-        answerSelect.appendChild(fill);
+        button.textContent = quiz[index].options[i];
+        li.appendChild(button);
+        answerSelect.appendChild(li);
+        button.addEventListener('click', function() {
+            if (this.textContent === quiz[index].answer) {
+                console.log('Correct!');
+            } else {
+                (seconds -10);
+                console.log('Incorrect!');
+            }
+            if (index < quiz.length - 1) {
+                showQuiz(index + 1);
+            } else {
+                console.log('Done');
+            }
+        });
     }
 }
 // if correct answer=move on to next question. Else if incorrect answers subtract from timer and move onto next question
