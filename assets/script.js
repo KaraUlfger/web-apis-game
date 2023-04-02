@@ -1,11 +1,11 @@
 var quiz = [
     {
-        question: "what planet are you on?",
+        question: "What planet are you on?",
         options: ["Earth", "Venus", "Mars", "Pluto"],
         answer: "Earth"
     },
     {
-        question: "when is lunch?",
+        question: "When is lunch?",
         options: ["Midnight", "Morning", "Noon", "Evening"],
         answer: "Noon"
     }
@@ -13,32 +13,19 @@ var quiz = [
 
 var questionSelect = document.getElementById("question");
 var answerSelect = document.getElementById("answerList");
-var scoreCard = document.getElementById('score')
+var scoreCard = document.getElementById('score');
+var buttonStart = document.getElementById('start');
 var seconds;
 var timer;
 var score = 0;
 
-// Click start button and timer starts for quiz
-document.getElementById("start").addEventListener('click', function() {
-    seconds = 60;
-    timer = setInterval(function() {
-        seconds--;
-        document.getElementById("countDown").innerText = "Time: " + seconds;
-        if (seconds === 0) {
-            clearInterval(timer);
-            scorePage();
-        }
-    }, 1000);
+// Hide start button and show quiz when clicked
+function hideButton() {
+    document.getElementById('start').style.display = 'none'; 
     showQuiz(0);
+};
 
-
-    var buttonHide = document.getElementById('show_button')
-    buttonHide.addEventListener('click',hideshow,false);
-
-    function hideshow() {
-        document.getElementById('hidden-div').style.display = 'block'; 
-        this.style.display = 'none'
-    };
+buttonStart.addEventListener('click', hideButton, false);
 
 // After timer starts, various questions from ARRAY to answer from multiple choice ARRAY
 // if correct answer=move on to next question. Else if incorrect answers subtract from timer and move onto next question
@@ -71,6 +58,19 @@ function showQuiz(index) {
     }
 }
 
+// Click start button and timer starts for quiz
+document.getElementById("start").addEventListener('click', function() {
+    seconds = 60;
+    timer = setInterval(function() {
+        seconds--;
+        document.getElementById("countDown").innerText = "Time: " + seconds;
+        if (seconds === 0) {
+            clearInterval(timer);
+            scorePage();
+        }
+    }, 1000);
+});
+
 // Show the score page when the quiz is done
 function scorePage() {
     answerSelect.innerHTML = '';
@@ -80,12 +80,3 @@ function scorePage() {
     answerSelect.appendChild(p);
 }
 
-
-
-// if all questions answered = game ends, add up score, else if time runs out = game ends, add up score
-    
-
-    
-
-// game over, adds up score, and user inputs initals to be saved in "Score Section"
-})
