@@ -7,27 +7,41 @@ var quiz = [
     {
         question: "when is lunch?",
         options: ["Midnight", "Morning", "Noon", "Evening"],
-        answer: "Noon" 
+        answer: "Noon"
     }
 ];
 
 var questionSelect = document.getElementById("question");
 var answerSelect = document.getElementById("answerList");
+var scoreCard = document.getElementById('score')
+var seconds;
+var timer;
+var score = 0;
 
 // Click start button and timer starts for quiz
 document.getElementById("start").addEventListener('click', function() {
-    var seconds = 60;
-    var timer = setInterval(function() {
-      seconds--;
-      document.getElementById("countDown").innerText = "Time: " + seconds;
-      if (seconds === 0) {
-        clearInterval(timer); 
-      }
+    seconds = 60;
+    timer = setInterval(function() {
+        seconds--;
+        document.getElementById("countDown").innerText = "Time: " + seconds;
+        if (seconds === 0) {
+            clearInterval(timer);
+            scorePage();
+        }
     }, 1000);
     showQuiz(0);
-});
+
+
+    var buttonHide = document.getElementById('show_button')
+    buttonHide.addEventListener('click',hideshow,false);
+
+    function hideshow() {
+        document.getElementById('hidden-div').style.display = 'block'; 
+        this.style.display = 'none'
+    };
 
 // After timer starts, various questions from ARRAY to answer from multiple choice ARRAY
+// if correct answer=move on to next question. Else if incorrect answers subtract from timer and move onto next question
 function showQuiz(index) {
     answerSelect.innerHTML = '';
     questionSelect.textContent = quiz[index].question;
@@ -41,20 +55,37 @@ function showQuiz(index) {
         answerSelect.appendChild(li);
         button.addEventListener('click', function() {
             if (this.textContent === quiz[index].answer) {
+                score += 10;
                 console.log('Correct!');
             } else {
-                (seconds -10);
+                seconds -= 10;
                 console.log('Incorrect!');
             }
             if (index < quiz.length - 1) {
                 showQuiz(index + 1);
             } else {
-                console.log('Done');
+                clearInterval(timer);
+                scorePage();
             }
         });
     }
 }
-// if correct answer=move on to next question. Else if incorrect answers subtract from timer and move onto next question
-// if all questions answered = game ends, add up score, else if time runs out = game ends, add up score
-// game over, adds up score, and user inputs initals to be saved in "Score Section"
 
+// Show the score page when the quiz is done
+function scorePage() {
+    answerSelect.innerHTML = '';
+    questionSelect.textContent = "Quiz Complete!";
+    var p = document.createElement("p");
+    p.textContent = "Score: " + score;
+    answerSelect.appendChild(p);
+}
+
+
+
+// if all questions answered = game ends, add up score, else if time runs out = game ends, add up score
+    
+
+    
+
+// game over, adds up score, and user inputs initals to be saved in "Score Section"
+})
