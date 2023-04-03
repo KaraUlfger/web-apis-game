@@ -1,13 +1,108 @@
 var quiz = [
   {
-    question: "What planet are you on?",
-    options: ["Earth", "Venus", "Mars", "Pluto"],
-    answer: "Earth"
+    question: "What type of galaxy is the most common in the universe?",
+    options: ["Elliptical", "Pinwheel", "Spiral", "Peculiar"],
+    answer: "Elliptical"
   },
   {
-    question: "When is lunch?",
-    options: ["Midnight", "Morning", "Noon", "Evening"],
-    answer: "Noon"
+    question: "Himilia moons can be found orbiting which planet?",
+    options: ["Mars", "Saturn", "Neptune", "Jupiter"],
+    answer: "Jupiter"
+  },
+  {
+    question: "Which NASA space flight was the last manned mission to the moon?",
+    options: ["Apollo 11", "Apollo 17", "Apollo 16", "Apollo 19"],
+    answer: "Apollo 17"
+  },
+  {
+    question: "What percent of the universe is dark matter?",
+    options: ["27", "18", "56", "2"],
+    answer: "27"
+  },
+  {
+    question: "What is the smallest planet in our solar system?",
+    options: ["Pluto", "Mercury", "Mars", "Venus"],
+    answer: "Mercury"
+  },
+  {
+    question: "hat is the longest continuous time a human has spent in space?",
+    options: ["207 days", "678 days", "437 days", "187 days"],
+    answer: "437 days"
+  },
+  {
+    question: "What is the most common type of star found in the Milky Way?",
+    options: ["Red Dwarf", "Yellow", "Red Giant", "Neutron"],
+    answer: "Red Dwarf"
+  },
+  {
+    question: "How many moons are in our Solar System? ",
+    options: ["127", "181", "216", "268"],
+    answer: "181"
+  },
+  {
+    question: "What is the closest star to the Sun?",
+    options: ["Kepler 1489", "Gliese", "Proxima Centauri", "Sirius"],
+    answer: "Proxima Centauri"
+  },
+  {
+    question: "What is the diameter of the Earth’s moon?",
+    options: ["2798 miles", "1814 miles", "5654 miles", "2159 miles"],
+    answer: "272159 miles"
+  },
+  {
+    question: "Which metal is found in high concentrations in asteroids?",
+    options: ["Iridium", "Indium", "Ezzo", "Iron"],
+    answer: "Iridium"
+  },
+  {
+    question: "Who was the last person to walk on the moon?",
+    options: ["John Young", "Gene Cernan", "Buzz Aldrin", "Yuri Gagarin"],
+    answer: "Gene Cernan"
+  },
+  {
+    question: "Which astronomer was noted for his formulating of the three laws of planetary motion?",
+    options: ["Galileo", "Brahe", "Kepler", "Copernicus"],
+    answer: "Kepler"
+  },
+  {
+    question: "What is the name of the black hole thought to exist at the center of the Milky Way?",
+    options: ["Taurus A", "Cancer A", "Leo A", "Sagittarius A"],
+    answer: "Sagittarius A"
+  },
+  {
+    question: "Mariner 4 was the first ship to flyby which planet?",
+    options: ["Mars", "Venus", "Mercury", "Jupiter"],
+    answer: "Mars"
+  },
+  {
+    question: "A spherical group of stars bound together by gravity is known as a what kind of cluster?",
+    options: ["Structural", "Hormonal", "Globular", "Molecular"],
+    answer: "Globular"
+  },
+  {
+    question: "The Crab Nebula, first seen in 1952, is located in which constellation?",
+    options: ["Cassiopeia", "Capricorn", "Orion", "Taurus"],
+    answer: "Taurus"
+  },
+  {
+    question: "In terms of composition, what is the second most prominent element on Mercury?",
+    options: ["Sodium", "Hydrogen", "Nitrogen", "Carbon"],
+    answer: "Sodium"
+  },
+  {
+    question: "What does the Russian word Sputnik mean?",
+    options: ["Post box", "Travelling companion", "ravel guide,", "Time friend"],
+    answer: "Travelling companion"
+  },
+  {
+    question: "Which of these moons of Jupiter is the largest?",
+    options: ["Io", "Europa", "Ganymede", "Callisto"],
+    answer: "Ganymede"
+  },
+  {
+    question: "What shop is not found on the Citidal?",
+    options: ["Rodam Expeditions", "Sirta Foundation", "5Saronis Applications", "Serrice Technology"],
+    answer: "Serrice Technology"
   }
 ];
 
@@ -36,8 +131,9 @@ buttonStart.addEventListener("click", hideButton, false);
 
 // After timer starts, various questions from ARRAY to answer from multiple choice ARRAY
 // if correct answer=move on to next question. Else if incorrect answers subtract from timer and move onto next question
-function showQuiz(index) {
+function showQuiz() {
   answerSelect.innerHTML = "";
+  var index = Math.floor(Math.random() * quiz.length); // generate random index
   questionSelect.textContent = quiz[index].question;
   for (var i = 0; i < quiz[index].options.length; i++) {
     var li = document.createElement("li");
@@ -55,15 +151,11 @@ function showQuiz(index) {
         seconds -= 10;
         console.log("Incorrect!");
       }
-      if (index < quiz.length - 1) {
-        showQuiz(index + 1);
-      } else {
-        clearInterval(timer);
-        scorePage();
-      }
+      showQuiz(); // show next random question
     });
   }
 }
+
 
 // Click start button and timer starts for quiz
 buttonStart.addEventListener("click", function () {
@@ -114,8 +206,9 @@ function highScore() {
   names.innerHTML = ""; 
   
   var sortedList = nameList.sort((a, b) => b.score - a.score);
+  var slicedList = sortedList.slice(0, 10); 
   
-  sortedList.forEach((item) => {
+  slicedList.forEach((item) => {
     var li = document.createElement("li");
     li.textContent = `${item.name} - ${item.score}`;
     names.appendChild(li); 
