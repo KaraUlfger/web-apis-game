@@ -3,3 +3,11 @@
     padding: 0;
     margin: 0;
 }
+
+highScore {
+ display: none
+}
+
+#restart {
+    display: none
+}
