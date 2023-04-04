@@ -47,7 +47,7 @@ var quiz = [
   {
     question: "What is the diameter of the Earth’s moon?",
     options: ["2798 miles", "1814 miles", "5654 miles", "2159 miles"],
-    answer: "2759 miles"
+    answer: "272159 miles"
   },
   {
     question: "Which metal is found in high concentrations in asteroids?",
@@ -91,7 +91,7 @@ var quiz = [
   },
   {
     question: "What does the Russian word Sputnik mean?",
-    options: ["Post box", "Travelling companion", "ravel guide,", "Time friend"],
+    options: ["Post box", "Travelling companion", "Travel guide,", "Time friend"],
     answer: "Travelling companion"
   },
   {
@@ -101,7 +101,7 @@ var quiz = [
   },
   {
     question: "What shop is not found on the Citidal?",
-    options: ["Rodam Expeditions", "Sirta Foundation", "5Saronis Applications", "Serrice Technology"],
+    options: ["Rodam Expeditions", "Sirta Foundation", "Saronis Applications", "Serrice Technology"],
     answer: "Serrice Technology"
   }
 ];
@@ -135,16 +135,23 @@ var usedQuestions = [];
 
 function showQuiz() {
   answerSelect.innerHTML = "";
-  
+
   // Find an unused question
   var index;
-  do {
-    index = Math.floor(Math.random() * quiz.length);
-  } while (usedQuestions.includes(index));
-  
+  if (usedQuestions.length === quiz.length) {
+    // All questions have been used up, show score page
+    clearInterval(timer);
+    scorePage();
+    return;
+  } else {
+    do {
+      index = Math.floor(Math.random() * quiz.length);
+    } while (usedQuestions.includes(index));
+  }
+
   // Store the index of the question that is about to be displayed
   usedQuestions.push(index);
-  
+
   questionSelect.textContent = quiz[index].question;
   for (var i = 0; i < quiz[index].options.length; i++) {
     var li = document.createElement("li");
@@ -155,18 +162,16 @@ function showQuiz() {
     li.appendChild(button);
     answerSelect.appendChild(li);
     button.addEventListener("click", function () {
-        if (this.textContent === quiz[index].answer) {
-          score += 10;
-          console.log("Correct!");
-          seconds += 10; 
-        } else {
-          seconds -= 10;
-          console.log("Incorrect!");
-        }
-        if (seconds <= 0) {
-          clearInterval(timer);
-          scorePage();
-        }
+      if (this.textContent === quiz[index].answer) {
+        score += 10;
+        seconds +=10;
+        console.log("Correct!");
+        showQuiz(); 
+      } else {
+        seconds -= 10;
+        console.log("Incorrect!");
+        showQuiz(); 
+      }
     });
   }
 }
@@ -176,8 +181,8 @@ buttonStart.addEventListener("click", function () {
   seconds = 60;
   timer = setInterval(function () {
     seconds--;
-    countDown.innerText = "Time: " + seconds;
-    if (seconds <= 0) {
+    document.getElementById("countDown").innerText = "Time: " + seconds;
+    if (seconds === 0) {
       clearInterval(timer);
       scorePage();
     }
@@ -226,7 +231,7 @@ function highScore() {
     
     slicedList.forEach(function(item) {
       var li = document.createElement('li');
-      li.textContent = item.name + ' | ' + item.score;
+      li.textContent = item.name + ' - ' + item.score;
       names.appendChild(li);
       restart();
     });
@@ -237,14 +242,15 @@ restartButton.addEventListener('click', function() {
   location.reload();
 });
 
+var replayButton = document.createElement('button');
+
 function restart() {
   var replayButton = document.createElement('button');
   replayButton.setAttribute('type', 'button');
   replayButton.textContent = 'Replay';
-  
+
   var restartButton = document.getElementById('restart');
   restartButton.innerHTML = '';
   restartButton.appendChild(replayButton);
   restartButton.style.display = "block";
 }
-
