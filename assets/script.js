@@ -131,9 +131,20 @@ buttonStart.addEventListener("click", hideButton, false);
 
 // After timer starts, various questions from ARRAY to answer from multiple choice ARRAY
 // if correct answer=move on to next question. Else if incorrect answers subtract from timer and move onto next question
+var usedQuestions = [];
+
 function showQuiz() {
   answerSelect.innerHTML = "";
-  var index = Math.floor(Math.random() * quiz.length); // generate random index
+  
+  // Find an unused question
+  var index;
+  do {
+    index = Math.floor(Math.random() * quiz.length);
+  } while (usedQuestions.includes(index));
+  
+  // Store the index of the question that is about to be displayed
+  usedQuestions.push(index);
+  
   questionSelect.textContent = quiz[index].question;
   for (var i = 0; i < quiz[index].options.length; i++) {
     var li = document.createElement("li");
@@ -148,7 +159,7 @@ function showQuiz() {
         score += 10;
         console.log("Correct!");
       } else {
-        seconds -= 10;
+        seconds ( 0>) -= 10;
         console.log("Incorrect!");
       }
       showQuiz(); // show next random question
@@ -197,24 +208,26 @@ function scorePage() {
 }
   
 function highScore() {
-  questionSelect.style.display='none';
-  countDown.style.display='none';
-  var displayScore =document.getElementById('high')
-  displayScore.style.display='block';
-  nameInsert.innerHTML = "";
-  answerSelect.innerHTML = "";
-  names.innerHTML = ""; 
-  
-  var sortedList = nameList.sort((a, b) => b.score - a.score);
-  var slicedList = sortedList.slice(0, 10); 
-  
-  slicedList.forEach((item) => {
-    var li = document.createElement("li");
-    li.textContent = `${item.name} - ${item.score}`;
-    names.appendChild(li); 
-    restart();
-  });
-}
+    questionSelect.style.display = 'none';
+    countDown.style.display = 'none';
+    var displayScore = document.getElementById('high');
+    displayScore.style.display = 'block';
+    nameInsert.innerHTML = '';
+    answerSelect.innerHTML = '';
+    names.innerHTML = '';
+    
+    var sortedList = nameList.sort(function(a, b) {
+      return b.score - a.score;
+    });
+    var slicedList = sortedList.slice(0, 10);
+    
+    slicedList.forEach(function(item) {
+      var li = document.createElement('li');
+      li.textContent = item.name + ' - ' + item.score;
+      names.appendChild(li);
+      restart();
+    });
+  }
 
 var restartButton = document.getElementById('restart');
 restartButton.addEventListener('click', function() {
