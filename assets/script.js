@@ -25,7 +25,7 @@ var quiz = [
     answer: "Mercury"
   },
   {
-    question: "hat is the longest continuous time a human has spent in space?",
+    question: "What is the longest continuous time a human has spent in space?",
     options: ["207 days", "678 days", "437 days", "187 days"],
     answer: "437 days"
   },
@@ -47,7 +47,7 @@ var quiz = [
   {
     question: "What is the diameter of the Earth’s moon?",
     options: ["2798 miles", "1814 miles", "5654 miles", "2159 miles"],
-    answer: "272159 miles"
+    answer: "2759 miles"
   },
   {
     question: "Which metal is found in high concentrations in asteroids?",
@@ -155,26 +155,29 @@ function showQuiz() {
     li.appendChild(button);
     answerSelect.appendChild(li);
     button.addEventListener("click", function () {
-      if (this.textContent === quiz[index].answer) {
-        score += 10;
-        console.log("Correct!");
-      } else {
-        seconds ( 0>) -= 10;
-        console.log("Incorrect!");
-      }
-      showQuiz(); // show next random question
+        if (this.textContent === quiz[index].answer) {
+          score += 10;
+          console.log("Correct!");
+          seconds += 10; 
+        } else {
+          seconds -= 10;
+          console.log("Incorrect!");
+        }
+        if (seconds <= 0) {
+          clearInterval(timer);
+          scorePage();
+        }
     });
   }
 }
-
 
 // Click start button and timer starts for quiz
 buttonStart.addEventListener("click", function () {
   seconds = 60;
   timer = setInterval(function () {
     seconds--;
-    document.getElementById("countDown").innerText = "Time: " + seconds;
-    if (seconds === 0) {
+    countDown.innerText = "Time: " + seconds;
+    if (seconds <= 0) {
       clearInterval(timer);
       scorePage();
     }
@@ -199,7 +202,7 @@ function scorePage() {
     if (name) {
       nameList.push({ name: name, score: score });
       localStorage.setItem("Name", JSON.stringify(nameList));
-      console.log(`${name} scored ${score} points`);
+      console.log(name + " scored " + score + " points");
       highScore();
     } else {
       alert("Please enter your name.");
@@ -223,7 +226,7 @@ function highScore() {
     
     slicedList.forEach(function(item) {
       var li = document.createElement('li');
-      li.textContent = item.name + ' - ' + item.score;
+      li.textContent = item.name + ' | ' + item.score;
       names.appendChild(li);
       restart();
     });
@@ -244,3 +247,4 @@ function restart() {
   restartButton.appendChild(replayButton);
   restartButton.style.display = "block";
 }
+
