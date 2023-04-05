@@ -8,34 +8,39 @@
     <title>Quiz</title>
 </head>
 <body>
-    <header>
-        <h1>Quiz</h1>
-        <button id="start" value="start">Start</button>
-        <button id="restart"></button>
-        <timer id="countDown"></timer>
-    </header>
+    <main>
+        <header>
+            <h1>SPAAAAAAAAAAAACE!...Quiz</h1>
+            <button id="start" value="start">Start</button>
+            <button id="restart"></button>
+            <timer id="countDown"></timer>
+        </header>
+        <div class="container">
+        <game>
+            <question id="question"></question>
+            <answer>
+                <ul id="answerList"></ul>
+            </answer>
+        </game>
+        
+        <scorePage>
+            <score id="score">
+                <nameInput id="nameInput"></nameInput>
+            </score>
+            <highScore id="high">
+                <h2>High Scores!</h2>
+                <names>
+                    <ul id="names">
 
-    <game>
-        <question id="question"></question>
-        <answer>
-            <ul id="answerList"></ul>
-        </answer>
-    </game>
-    
-    <scorePage>
-        <score id="score">
-            <nameInput id="nameInput"></nameInput>
-        </score>
-        <highScore id="high">
-            <h2>High Scores!</h2>
-            <names>
-                <h3>Names | Scores</h3>
-                <ul id="names">
-
-                </ul>
-            </names>
-        </highScore>
-    </scorePage>
+                    </ul>
+                </names>
+            </highScore>
+        </scorePage>
+    </div>
+    </main>
+    <footer>
+        <h4>Made with ❤️ 🧡 💛 💚 💙 💜 🖤 ,and by Karathesymbiote</h4>
+    </footer>
     <script src="./assets/script.js"></script>
 </body>
 </html>
