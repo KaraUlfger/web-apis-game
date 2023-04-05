@@ -1,46 +1,184 @@
-* {
-    border-style: border-box;
+:root {
+    --black: #000000ff;
+    --violet-jtc: #502f4cff;
+    --chinese-violet: #70587cff;
+    --thistle: #c8b8dbff;
+    --snow: #f9f4f5ff;
+  }
+  
+  * {
+    box-sizing: border-box;
     padding: 0;
     margin: 0;
-}
-
-highScore {
- display: none
-}
-
-#restart {
-    display: none
-}
-ul {
+  }
+  
+  body {
+    background-color: var(--chinese-violet);
+    color: var(--thistle);
+    background-image: url("../images/galaxy.jpg");
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(54, 25, 25, .5);
+    height: 20%;
+  }
+  
+  highScore {
+    display: none;
+  }
+  
+  #restart {
+    display: none;
+  }
+  
+  ul {
     list-style: none;
-    margin: 0;
-    padding: 0;
+    margin: 50px;
+    padding: 50px;
+    align-content: space-evenly;
+    word-wrap: normal;
   }
   
   li {
     margin: 10px 0;
   }
   
+  game {
+    display: grid;
+    align-items: center;
+    margin: 100px;
+    padding: 10px;
+    align-content: space-evenly;
+    
+  }
+  
+  #question {
+    margin: 50px;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    background-color: rgba(54, 25, 25, .5);
+  }
+  
+  #answerList {
+  }
+  
+  
+    
+  
+  #p{
+    font-size: 30px;
+  }
+
+  scorePage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    background-color: rgba(54, 25, 25, .7);
+  }
+  
+  #names {
+    font-size: 25px;
+  }
+
+  footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(54, 25, 25, .5);
+    text-align: center;
+  }
+  
   button {
-    background-color: #4CAF50;
+    width: 125px;
+    height: 50px;
+    background-color: var(--black);
     border: none;
-    color: white;
+    color: var(--thistle);
     padding: 10px 20px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 4px 2px;
+    margin: 5px 5px;
     cursor: pointer;
+    border-radius: 100%;
   }
   
   button:hover {
-    background-color: #3e8e41;
+    background-color: var(--chinese-violet);
   }
   
-  #question {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
+  @media only screen and (max-width: 1024px) {
+    /* CSS for tablets */
+    header {
+      height: 15%;
+    }
+  
+    ul {
+      margin: 25px;
+      padding: 25px;
+    }
+  
+    game {
+      margin: 50px;
+    }
+  
+    #question {
+      margin: 25px;
+      font-size: 20px;
+    }
+  
+    #score {
+      margin: 25px;
+      font-size: 20px;
+    }
+  
+    #p{
+      font-size: 24px;
+    }
+  }
+  
+  @media only screen and (max-width: 768px) {
+    /* CSS for smartphones */
+    header {
+      height: 10%;
+    }
+  
+    ul {
+      margin: 10px;
+      padding: 10px;
+    }
+  
+    game {
+      margin: 25px;
+    }
+  
+    #question {
+      margin: 10px;
+      font-size: 16px;
+    }
+  
+    #score {
+      margin: 10px;
+      font-size: 16px;
+    }
+  
+    #p{
+      font-size: 20px;
+    }
+  
+    button {
+      font-size: 14px;
+      padding: 8px 16px;
+    }
   }
   

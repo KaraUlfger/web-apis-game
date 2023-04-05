@@ -91,7 +91,7 @@ var quiz = [
   },
   {
     question: "What does the Russian word Sputnik mean?",
-    options: ["Post box", "Travelling companion", "Travel guide,", "Time friend"],
+    options: ["Post box", "Travelling companion", "Travel guide", "Time friend"],
     answer: "Travelling companion"
   },
   {
@@ -242,7 +242,7 @@ restartButton.addEventListener('click', function() {
   location.reload();
 });
 
-var replayButton = document.createElement('button');
+
 
 function restart() {
   var replayButton = document.createElement('button');
